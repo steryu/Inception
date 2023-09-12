@@ -1,7 +1,4 @@
-version: '3'
-
-networks:
-  docker_network:
+version: "3"
 
 services:
   mariadb:
@@ -9,46 +6,50 @@ services:
     container_name: mariadb
     build: requirements/mariadb/
     restart: always
-    networks:
-      - docker_network
     volumes:
-      - dp:/var/lib/mysql
+      - db:/var/lib/mysql
+    networks:
+      - mynetwork
     env_file:
       - .env
-  # nginx:
-  #   image: nginx
-  #   container_name: nginx
-  #   build: requirements/nginx
-  #   restart: always
-  #   networks:
-  #     - docker_network
-  #   volumes:
-  #     - wp:/var/www/wordpress
-  #   ports:
-  #     - "443:443"
-
-  # wordpress:
-  #   image: wordpress
-  #   container_name: wordpress
-  #   build: requirements/wordpress
-  #   restart: always
-  #   networks:
-  #     - docker_network
-  #   volumes:
-  #     - wp:/var/www/wordpress
-  #   env_file:
-  #     - .env
+  nginx:
+    image: nginx
+    container_name: nginx
+    build: requirements/nginx
+    restart: always
+    volumes:
+      - wp:/var/www/wordpress
+    networks:
+      - mynetwork
+    depends_on:
+      - wordpress
+    ports:
+      - "443:443"
+  wordpress:
+    image: wordpress
+    container_name: wordpress
+    build: requirements/wordpress
+    restart: always
+    volumes:
+      - wp:/var/www/wordpress
+    networks:
+      - mynetwork
+    env_file:
+      - .env
 
 volumes:
-  dp:
+  db:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/svan-ass/data/mariadb
+      device: /Users/svan-ass/data/mariadb
   wp:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/svan-ass/data/wordpress
+      device: /Users/svan-ass/data/wordpress
+
+networks:
+  mynetwork:
