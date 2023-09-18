@@ -2,8 +2,8 @@
 
 /* MySQL settings */
 define( 'DB_NAME',     'wordpress' );
-define( 'DB_USER',     'adminnetje' );
-define( 'DB_PASSWORD', 'adminww' );
+define( 'DB_USER',     'ManyRights' );
+define( 'DB_PASSWORD', 'Manypass' );
 define( 'DB_HOST',     'svan-ass.42.fr' );
 define( 'DB_CHARSET',  'utf8mb4' );
 

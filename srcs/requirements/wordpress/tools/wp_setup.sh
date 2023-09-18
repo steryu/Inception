@@ -9,7 +9,7 @@ if [ ! -f /var/www/wordpress/wp-config.php ]
 then
 	cd /var/www/wordpress #go into volume
     wp core download --allow-root
-    wp config create --allow-root --path= --dbname=$DB_NAME --dbuser=$ADMIN_LOGIN --dbpass=$ADMIN_PASSWORD --dbhost=mariadb --config-file=/var/www/wordpress/wp-config.php --skip-packages --skip-plugins 
+    wp config create --allow-root --dbname=$DB_NAME --dbuser=$ADMIN_LOGIN --dbpass=$ADMIN_PASSWORD --dbhost=mariadb --config-file=/var/www/wordpress/wp-config.php --skip-packages --skip-plugins 
 
     echo Created config
 
